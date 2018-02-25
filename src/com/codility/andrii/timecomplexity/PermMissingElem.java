@@ -46,14 +46,14 @@ public class PermMissingElem {
 	public static int solution(int[] A) {
 		
 		// the sum of the first N+1 positive integers is S = (N+1)*(N+2) / 2
-		int expectedSum = (A.length+1) * (A.length+2) / 2;
+		long expectedSum = (long)(A.length+1) * (long)(A.length+2) / 2L;
 		
-		int realSum = 0;
-		for(int n : A)
+		long realSum = 0;
+		for(long n : A)
 			realSum += n;
 		
 		// difference is:
-		int result = expectedSum - realSum;
+		int result = (int)(expectedSum - realSum);
 		
 		return result;
 		
