@@ -49,16 +49,16 @@ public class NumberOfDiscIntersections {
 		private int point;
 		private boolean isEnd;
 
-		public Mark(int point, boolean isEnd) {
+		Mark(int point, boolean isEnd) {
 			this.point = point;
 			this.isEnd = isEnd;
 		}
 
-		public int getPoint() {
+		int getPoint() {
 			return point;
 		}
 
-		public boolean isEnd() {
+		boolean isEnd() {
 			return isEnd;
 		}
 
@@ -78,7 +78,6 @@ public class NumberOfDiscIntersections {
 	}
 
 	public int solution(int[] A){
-		int result = 0;
 		Mark[] marks = new Mark[2*A.length];
 		for(int i = 0; i<A.length; i++){
 			marks[2*i]   = new Mark(i-A[i], false);
