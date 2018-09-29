@@ -34,18 +34,74 @@ N is an integer within the range [0..100,000];
 each element of array A is an integer within the range [0..2,147,483,647].
  */
 
+import java.util.Arrays;
+
 public class NumberOfDiscIntersections {
 
 	public static void main(String[] args) {
 
 		int[] test1 = new int[]{1,5,2,1,4,0};
 
-		System.out.println(solution(test1));
+		System.out.println(new NumberOfDiscIntersections().solution(test1));
 	}
 
-	public static int solution(int[] A){
-		int result = 0;
+	class Mark implements Comparable<Mark> {
+		private int point;
+		private boolean isEnd;
 
-		return -1;
+		public Mark(int point, boolean isEnd) {
+			this.point = point;
+			this.isEnd = isEnd;
+		}
+
+		public int getPoint() {
+			return point;
+		}
+
+		public boolean isEnd() {
+			return isEnd;
+		}
+
+		@Override
+		public int compareTo(Mark o) {
+			if(this.point > o.getPoint()) return 1;
+			else if(this.point == o.getPoint()) {
+				if(this.isEnd)	return 1;
+			}
+			return -1;
+		}
+
+		@Override
+		public String toString(){
+			return Integer.toString(this.point).concat(isEnd?"E":"S");
+		}
+	}
+
+	public int solution(int[] A){
+		int result = 0;
+		Mark[] marks = new Mark[2*A.length];
+		for(int i = 0; i<A.length; i++){
+			marks[2*i]   = new Mark(i-A[i], false);
+			marks[2*i+1] = new Mark(i+A[i], true);
+		}
+
+		Arrays.sort(marks);
+
+		int total = 0;
+		int overlapped = -1;
+
+		for(int i = 0; i<marks.length; i++){
+			if(!marks[i].isEnd()) {
+				overlapped +=1;
+				total+= overlapped;
+				if(total > 10_000_000)
+					return -1;
+			}
+			else {
+				overlapped -= 1;
+			}
+		}
+
+		return total;
 	}
 }
